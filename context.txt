@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS `company`;
 CREATE TABLE `company`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `company_id` int(11) NULL DEFAULT NULL,#è¥é”€éƒ¨id
+  `company_id` int(11) NULL DEFAULT NULL,#ÓªÏú²¿id
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -21,15 +21,15 @@ delete from company where id = 5;
 -- ----------------------------
 -- Records of company
 -- ----------------------------
-INSERT INTO `company` VALUES (1, 'åŒ—äº¬åˆ†å…¬å¸', NULL);
-INSERT INTO `company` VALUES (2, 'ä¸Šæµ·åˆ†å…¬å¸', NULL);
-INSERT INTO `company` VALUES (3, 'è¥ä¸šéƒ¨one', 1);
-INSERT INTO `company` VALUES (4, 'è¥ä¸šéƒ¨tow', 2);
+INSERT INTO `company` VALUES (1, '±±¾©·Ö¹«Ë¾', NULL);
+INSERT INTO `company` VALUES (2, 'ÉÏº£·Ö¹«Ë¾', NULL);
+INSERT INTO `company` VALUES (3, 'ÓªÒµ²¿one', 1);
+INSERT INTO `company` VALUES (4, 'ÓªÒµ²¿tow', 2);
 
 -- ----------------------------
 -- Table structure for compper
 -- ----------------------------
-#å…³ç³»è®°å½•è¡¨
+#¹ØÏµ¼ÇÂ¼±í
 DROP TABLE IF EXISTS `compper`;
 CREATE TABLE `compper`  (
   `company_id` int(11) NULL DEFAULT NULL,
@@ -56,8 +56,8 @@ CREATE TABLE `personnel`  (
 -- ----------------------------
 -- Records of personnel
 -- ----------------------------
-INSERT INTO `personnel` VALUES (1, 'å¼ æ‰¬', '2019-01-01 00:00:00');
-INSERT INTO `personnel` VALUES (2, 'é™ˆç”Ÿ', '2019-01-03 00:00:00');
+INSERT INTO `personnel` VALUES (1, 'ÕÅÑï', '2019-01-01 00:00:00');
+INSERT INTO `personnel` VALUES (2, '³ÂÉú', '2019-01-03 00:00:00');
 INSERT INTO `personnel` VALUES (3, 'test', '2019-01-03 00:00:00');
 INSERT INTO `personnel` VALUES (5, 'test2', '2019-01-03 00:00:00');
 
@@ -67,27 +67,27 @@ update `personnel` set name='test' where id=3;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-#-----------------select è¯­å¥
+#-----------------select Óï¾ä
 select * from company;
 select * from compper;
 select * from personnel,compper where  personnel.id=compper.personnel_id;
 
 
-#------------deleteè¯­å¥
+#------------deleteÓï¾ä
 delete from company;
 delete from compper where compper.company_id='3' and personnel_id='0';
 delete from compper where compper.company_id='4' and personnel_id='0';
 delete from personnel where id='5';
 
 
-select a.name å§“å, c.name è¥ä¸šéƒ¨, d.name åˆ†å…¬å¸,a.timeup åˆ›å»ºæ—¶é—´
+select a.name ĞÕÃû, c.name ÓªÒµ²¿, d.name ·Ö¹«Ë¾,a.timeup ´´½¨Ê±¼ä
 from personnel a left join compper b on a.id = b.personnel_id 
     left join company c on b.company_id = c.id 
     left join company d on c.company_id = d.id
-where a.name like'%å¼ %';
+where a.name like'%ÕÅ%';
 
 
-select a.name å§“å, c.name è¥ä¸šéƒ¨, d.name åˆ†å…¬å¸,a.timeup åˆ›å»ºæ—¶é—´
+select a.name ĞÕÃû, c.name ÓªÒµ²¿, d.name ·Ö¹«Ë¾,a.timeup ´´½¨Ê±¼ä
 from personnel a left join compper b on a.id = b.personnel_id 
     left join company c on b.company_id = c.id 
     left join company d on c.company_id = d.id
@@ -95,7 +95,7 @@ where b.company_id =3;
 
 
 
-#åˆ é™¤ä»ç¬¬ä¸‰è¡Œåˆ°ç¬¬47è¡Œçš„æ•°æ®
+#É¾³ı´ÓµÚÈıĞĞµ½µÚ47ĞĞµÄÊı¾İ
 select * from personnel;
  delete from personnel where id in (5,10);
  
