@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.tongyu.bct.auth.mapper.PersonnelMapper">
+	
+	<insert id="addPersonner" parameterType="tech.tongyu.bct.auth.entity.Personnel"  useGeneratedKeys="true">
+		insert into personnel(name,timeup) values(#{Personnel.name},#{Personnel.timeup})
+		/*FORCE_MASTER*/
+		<selectKey resultType="java.lang.Integer" keyProperty="Personnel.id" order="AFTER">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+
+	</insert>
+
+	<select id="findPersonnel" resultType="tech.tongyu.bct.auth.entity.Personnel">
+		select name from personnel where id in 
+		<foreach collection="ids" item="companyId" open="(" separator="," close=")">
+				#{companyId, jdbcType=BIGINT}
+		</foreach>
+	
+	</select>
+	
+	<select id="findPersonnelByLike" resultType="tech.tongyu.bct.auth.entity.Personnel">
+		select id,name,timeup from personnel where id in 
+		(	select  personnel_id from  compper where company_id in 
+		(	select id from company where company_id in(
+		select id from company where company_id is null
+		<if test="companyName != null">
+		 	and name = like CONCAT('%','${companyName}','%') 
+		</if>
+		 ))  
+		 <if test="departmentName != null">
+		 	and name = like CONCAT('%','${departmentName}','%') 
+		 </if>
+		 ) 
+		 <if test="name != null">
+		 	and name = like CONCAT('%','${name}','%') 
+		 </if>
+	
+	</select>
+	
+</mapper>

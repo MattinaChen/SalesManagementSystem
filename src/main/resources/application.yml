@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /TEST
+    session:
+       timeout: 1800
+  
+  
+#spring配置
+spring:
+  servlet:
+    multipart: 
+      resolve-lazily: true
+      max-file-size: 5MB
+      enabled: true
+    
+  datasource:
+    url: jdbc:mysql://localhost:3306/context?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #druid配置
+    #type: com.alibaba.druid.pool.DruidDataSource
+  
+  
+  
+  #RabbitMQ 配置
+  #rabbitmq:
+    # host: 10.10.23.225
+     #port: 5672
+     #username: thtf
+     #password: thtf 
+     
+    
+    
+# 配置mybatis-plus
+mybatis-plus:
+  # 配置扫描xml
+  mapper-locations: classpath:mapper/*.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: tech.tongyu.bct.auth.entity
+  global-config:
+    refresh: true
+
+
+    #让控制台输出sql语句
+logging:
+  level:  # 日志级别
+    tech:
+      tongyu:
+        bct:
+          auth:
+            mapper: DEBUG # 配置spring web日志级别
